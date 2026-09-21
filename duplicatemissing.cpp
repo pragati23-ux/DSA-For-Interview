@@ -1,33 +1,42 @@
 #include<bits/stdc++.h>
 using namespace std;
-int missing(vector<int>&nums){
-     unordered_set<int>duplicate;
-     int actualsum=0;
-     int dup=-1;
-     int n=nums.size();
-     for(int x:nums){
-        actualsum +=x;
-        if(duplicate.count(x))
-         { dup=x;
-          
-         }
-        else
-         duplicate.insert(x);
-     }
-     int expected_sum=n*(n-1)/2;
-     int missing=expected_sum-actualsum+dup;
-     cout<<"duplicate"<<dup;
-     return missing;
 
-}
-int main(){
-    int n;
-    cin>>n;
-    vector<int>nums;
-    for(int i=0;i<n;i++){
-        int x;
-        cin>>x;
-        nums.push_back(x);
+pair<int, int> findDuplicateAndMissing(const vector<int>& nums) {
+    unordered_set<int> seen;
+    long long actualSum = 0;
+    int dup = -1;
+    int n = nums.size();
+
+    for (int x : nums) {
+        actualSum += x;
+        if (seen.count(x)) {
+            dup = x;
+        } else {
+            seen.insert(x);
+        }
     }
-    cout<<missing(nums);
+
+    long long expectedSum = 1LL * n * (n + 1) / 2;
+    int missing = expectedSum - (actualSum - dup);
+
+    return {dup, missing};
+}
+
+int main() {
+    int n;
+    cin >> n;
+    vector<int> nums(n);
+
+    for (int i = 0; i < n; i++) {
+        cin >> nums[i];
+    }
+
+    pair<int, int> result = findDuplicateAndMissing(nums);
+    int dup = result.first;
+    int missing = result.second;
+
+    cout << "Duplicate: " << dup << "\n";
+    cout << "Missing: " << missing << "\n";
+
+    return 0;
 }

@@ -5,25 +5,27 @@ vector<int>sum(vector<int>&nums,int target){
     int n=nums.size();
     int result=0;
     for(int i=0;i<n;i++){
-      mp[i]++;
       result=target-nums[i];
       if( mp.find(result) != mp.end())
-        return {mp[result],i}
+        return {mp[result],i};
       
-      nums[i]=i;
+      mp[nums[i]]=i;
 
     }
     return {};
 
 }
 int main(){
-    vector<int>nums;
+    
     int n;
     cin>>n;
+    vector<int>nums;
     int target;
     cin>>target;
     for(int i=0;i<n;i++){
-        cin>>nums[i];
+        int x;
+        cin>>x;
+       nums.push_back(x);
     }
     sum(nums,target);
 
